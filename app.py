@@ -30,12 +30,10 @@ def getPrediction(dataUser):
 
 def loadCustomerData(customerId):
     bigqueryClient = bigquery.Client()
-    query_string = """
-    SELECT
-    *
-    FROM `donexp.onlineRetail.onlineRetailTransformed`
-    WHERE CustomerID = {customerId}
-    """
+    query_string = f"SELECT \
+    * \
+    FROM `donexp.onlineRetail.onlineRetailTransformed` \
+    WHERE CustomerID = {customerId}"
     tx_class = (
         bigqueryClient.query(query_string)
         .result()
