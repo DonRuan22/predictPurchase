@@ -3,7 +3,6 @@ import json
 import logging
 import os
 from google.cloud import bigquery
-import gcsfs
 import joblib
 import pandas as pd
 import numpy as np
