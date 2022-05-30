@@ -1,7 +1,5 @@
 from flask import Flask, request
-import requests
 import json
-import config
 import logging
 import os
 from google.cloud import bigquery
