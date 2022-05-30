@@ -16,7 +16,7 @@ app = Flask(__name__)
 def getPrediction(dataUser):
     filename = 'gcs://don-onlineretail/predict_purchase_model.joblib.pkl'
     fs = gcsfs.GCSFileSystem()
-    with fs.open(filename, 'r') as f:
+    with fs.open(filename, 'rb') as f:
         model = joblib.load(f)
         predicted = model.predict(dataUser[0])
         return predicted
