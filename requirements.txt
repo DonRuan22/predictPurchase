@@ -4,5 +4,4 @@ Flask==2.1.0
 Flask-RESTful==0.3.9
 joblib
 xgboost
-config
-google-cloud-bigquery
+google-cloud-bigquery==3.1.0
