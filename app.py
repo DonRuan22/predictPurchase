@@ -7,25 +7,19 @@ import joblib
 import pandas as pd
 import numpy as np
 import xgboost as xgb
-
+import gcsfs
 
 
 app = Flask(__name__)
-SECRET_KEY = 'b8d43ce14d05828c73257013c8e67b95'
-#PAGE_ACCESS_TOKEN = "EAACCGdwRfhABANBdZCtGQWTBPWLiH2wnRLreO6vZAtP6WZBvTAsmDkCVYkVD7fmUtGu5ARlGtI1tV8nhSyZCjy0sHGfKRNZAJcemHpaQ0glcfqITZBxuZA6Y6RrehcrgWvZCzAWVT9T3Rln5lOMArSy9A64HPOg19AT9T2PyWWdZAQdeFTuESLpqS"
-VERIFY_TOKEN = 'rasa-don'
-global INIT_VARI
-global mId 
-mId = []
-INIT_VARI=''
 
 
 def getPrediction(dataUser):
-    model_dir="gcs://don-onlineretail/"
-    model_path = os.path.join(model_dir, 'predict_purchase_model.joblib.pkl')
-    model = joblib.load(model_path)
-    predicted = model.predict(dataUser[0])
-    return predicted
+    filename = 'gcs://don-onlineretail/predict_purchase_model.joblib.pkl'
+    fs = gcsfs.GCSFileSystem()
+    with fs.open(filename, 'wb') as f:
+        model = joblib.load(f)
+        predicted = model.predict(dataUser[0])
+        return predicted
 
 
 def loadCustomerData(customerId):
