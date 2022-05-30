@@ -61,15 +61,9 @@ def loadCustomerData(customerId):
 def callSendAPI(customerId, response, type_response='message'):
     #PAGE_ACCESS_TOKEN = config.PAGE_ACCESS_TOKEN
     logging.warning("Response: "+ str(response)) 
-    payload = {
-    'customerid': customerId,
-    response
-    }   
+    payload = dict({'customerid': customerId},response)   
     
-    logging.warning(r.request.headers) 
-    logging.warning(r.url) 
-    logging.warning(r.content) 
-    logging.warning(r.__dict__) 
+    logging.warning(payload) 
     return payload
 
 
