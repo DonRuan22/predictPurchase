@@ -55,7 +55,7 @@ def loadCustomerData(customerId):
 
 
 #Function to access the Sender API
-def callSendAPI(customerId, response, type_response='message'):
+def callSendAPI(customerId, response):
     #PAGE_ACCESS_TOKEN = config.PAGE_ACCESS_TOKEN
     logging.warning("Response: "+ str(response)) 
     payload = dict({'customerid': customerId},response)   
@@ -66,7 +66,7 @@ def callSendAPI(customerId, response, type_response='message'):
 
 
 #Function for handling a message from MESSENGER
-def handleMessage(customerId, receivedMessage):
+def handleMessage(customerId):
     print("handle message")
     #callSendAPI(senderPsid, "","sender_action")
     data_customer = loadCustomerData(customerId)
