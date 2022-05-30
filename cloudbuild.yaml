@@ -1,0 +1,7 @@
+steps:
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['build', '-t', 'gcr.io/donexp/apipredictpurchase:$SHORT_SHA', '.']
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['push','gcr.io/donexp/apipredictpurchase:$SHORT_SHA']
+- name: 'gcr.io/cloud-builders/gcloud'
+  args: ['run', 'deploy', 'apipredictpurchase', '--region=us-central1', '--platform=managed', '--image=gcr.io/donexp/apipredictpurchase:$SHORT_SHA']
