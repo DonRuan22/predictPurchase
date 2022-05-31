@@ -19,6 +19,10 @@ def getPrediction(dataUser):
     logging.warning(dataUser) 
     with fs.open(filename, 'rb') as f:
         model = joblib.load(f)
+        cols_when_model_builds = model.get_booster().feature_names
+        for each in cols_when_model_builds:
+            if each not in dataUser.columns:
+                dataUser[each] = 0
         predicted = model.predict(dataUser)
         return predicted.iloc[0]
 
