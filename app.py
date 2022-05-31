@@ -19,8 +19,8 @@ def getPrediction(dataUser):
     logging.warning(dataUser) 
     with fs.open(filename, 'rb') as f:
         model = joblib.load(f)
-        predicted = model.predict(dataUser.iloc[0])
-        return predicted
+        predicted = model.predict(dataUser)
+        return predicted.iloc[0]
 
 
 def loadCustomerData(customerId):
