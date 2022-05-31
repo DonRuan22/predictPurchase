@@ -68,7 +68,7 @@ def loadCustomerData(customerId):
         
         return X
     else:
-        return 'no user'
+        return pd.DataFrame([])
 
 
 
@@ -88,7 +88,7 @@ def handleMessage(customerId):
     print("handle message")
     #callSendAPI(senderPsid, "","sender_action")
     data_customer = loadCustomerData(customerId)
-    if(data_customer != 'no user'):
+    if(!data_customer.empty):
         predicted_range = getPrediction(data_customer)
         response = {"predictedRange":predicted_range}
     else:
