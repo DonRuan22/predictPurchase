@@ -41,7 +41,12 @@ def loadCustomerData(customerId):
     )
         
     tx_classdb = pd.get_dummies(tx_class)
-
+    tx_classdb['Recency'] = tx_classdb['Recency'].astype('int64')
+    tx_classdb['RecencyCluster'] = tx_classdb['RecencyCluster'].astype('int64')
+    tx_classdb['Frequency'] = tx_classdb['Frequency'].astype('int64')
+    tx_classdb['FrequencyCluster'] = tx_classdb['FrequencyCluster'].astype('int64')
+    tx_classdb['RevenueCluster'] = tx_classdb['RevenueCluster'].astype('int64')
+    tx_classdb['OverallScore'] = tx_classdb['OverallScore'].astype('int64')
     tx_classdb['NextPurchaseDayRange'] = 2
     tx_classdb.loc[tx_classdb.NextPurchaseDay>20,'NextPurchaseDayRange'] = 1
     tx_classdb.loc[tx_classdb.NextPurchaseDay>50,'NextPurchaseDayRange'] = 0
