@@ -40,10 +40,22 @@ def loadCustomerData(customerId):
         )
     )
         
-    
     tx_classdb = pd.get_dummies(tx_class)
+
+    tx_classdb['NextPurchaseDayRange'] = 2
+    tx_classdb.loc[tx_classdb.NextPurchaseDay>20,'NextPurchaseDayRange'] = 1
+    tx_classdb.loc[tx_classdb.NextPurchaseDay>50,'NextPurchaseDayRange'] = 0
+        
+    logging.info('dataframe head - {}'.format(tx_classdb.describe()))  
+    logging.info('dataframe head - {}'.format(tx_classdb.NextPurchaseDayRange))  
+    logging.info('dataframe head - {}'.format(tx_classdb.NextPurchaseDay))  
+
+
+    #train & test split
+    tx_classdb = tx_classdb.drop('NextPurchaseDay',axis=1)
+    X = tx_classdb.drop('NextPurchaseDayRange',axis=1)
     
-    return tx_classdb
+    return X
 
 
 
