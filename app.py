@@ -43,29 +43,32 @@ def loadCustomerData(customerId):
             create_bqstorage_client=True,
         )
     )
-        
-    tx_classdb = pd.get_dummies(tx_class)
-    #tx_classdb['Recency'] = tx_classdb['Recency'].astype('int64')
-    #tx_classdb['RecencyCluster'] = tx_classdb['RecencyCluster'].astype('int64')
-    #tx_classdb['Frequency'] = tx_classdb['Frequency'].astype('int64')
-    #tx_classdb['FrequencyCluster'] = tx_classdb['FrequencyCluster'].astype('int64')
-    #tx_classdb['RevenueCluster'] = tx_classdb['RevenueCluster'].astype('int64')
-    #tx_classdb['OverallScore'] = tx_classdb['OverallScore'].astype('int64')
-    tx_classdb['NextPurchaseDayRange'] = 2
-    tx_classdb.loc[tx_classdb.NextPurchaseDay>20,'NextPurchaseDayRange'] = 1
-    tx_classdb.loc[tx_classdb.NextPurchaseDay>50,'NextPurchaseDayRange'] = 0
-        
-    logging.warning('dataframe head - {}'.format(tx_classdb.describe()))  
-    logging.warning('dataframe head - {}'.format(tx_classdb.NextPurchaseDayRange))  
-    logging.warning('dataframe head - {}'.format(tx_classdb.NextPurchaseDay))  
-    logging.warning(tx_classdb.dtypes) 
     
-
-    #train & test split
-    tx_classdb = tx_classdb.drop('NextPurchaseDay',axis=1)
-    X = tx_classdb.drop('NextPurchaseDayRange',axis=1)
+    if(len(tx_class)>0):    
+        tx_classdb = pd.get_dummies(tx_class)
+        #tx_classdb['Recency'] = tx_classdb['Recency'].astype('int64')
+        #tx_classdb['RecencyCluster'] = tx_classdb['RecencyCluster'].astype('int64')
+        #tx_classdb['Frequency'] = tx_classdb['Frequency'].astype('int64')
+        #tx_classdb['FrequencyCluster'] = tx_classdb['FrequencyCluster'].astype('int64')
+        #tx_classdb['RevenueCluster'] = tx_classdb['RevenueCluster'].astype('int64')
+        #tx_classdb['OverallScore'] = tx_classdb['OverallScore'].astype('int64')
+        tx_classdb['NextPurchaseDayRange'] = 2
+        tx_classdb.loc[tx_classdb.NextPurchaseDay>20,'NextPurchaseDayRange'] = 1
+        tx_classdb.loc[tx_classdb.NextPurchaseDay>50,'NextPurchaseDayRange'] = 0
+            
+        logging.warning('dataframe head - {}'.format(tx_classdb.describe()))  
+        logging.warning('dataframe head - {}'.format(tx_classdb.NextPurchaseDayRange))  
+        logging.warning('dataframe head - {}'.format(tx_classdb.NextPurchaseDay))  
+        logging.warning(tx_classdb.dtypes) 
+        
     
-    return X
+        #train & test split
+        tx_classdb = tx_classdb.drop('NextPurchaseDay',axis=1)
+        X = tx_classdb.drop('NextPurchaseDayRange',axis=1)
+        
+        return X
+    else:
+        return 'no user'
 
 
 
@@ -85,7 +88,7 @@ def handleMessage(customerId):
     print("handle message")
     #callSendAPI(senderPsid, "","sender_action")
     data_customer = loadCustomerData(customerId)
-    if(data_customer.shape[0] > 0):
+    if(data_customer != 'no user'):
         predicted_range = getPrediction(data_customer)
         response = {"predictedRange":predicted_range}
     else:
