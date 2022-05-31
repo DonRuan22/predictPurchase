@@ -88,7 +88,7 @@ def handleMessage(customerId):
     print("handle message")
     #callSendAPI(senderPsid, "","sender_action")
     data_customer = loadCustomerData(customerId)
-    if(!data_customer.empty):
+    if(not data_customer.empty):
         predicted_range = getPrediction(data_customer)
         response = {"predictedRange":predicted_range}
     else:
