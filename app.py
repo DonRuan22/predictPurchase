@@ -90,7 +90,7 @@ def handleMessage(customerId):
         response = {"predictedRange":predicted_range}
     else:
         response = {"error":"CustomerId not exist"}
-    message = callSendAPI(response)
+    message = callSendAPI(customerId,response)
     return message
     
 
