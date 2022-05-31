@@ -73,7 +73,7 @@ def loadCustomerData(customerId):
 def callSendAPI(customerId, response):
     #PAGE_ACCESS_TOKEN = config.PAGE_ACCESS_TOKEN
     logging.warning("Response: "+ str(response)) 
-    payload = dict({'customerid': customerId},response)   
+    payload = {'customerid': customerId,**response}   
     
     logging.warning(payload) 
     return payload
@@ -87,7 +87,7 @@ def handleMessage(customerId):
     data_customer = loadCustomerData(customerId)
     if(data_customer.shape[0] > 0):
         predicted_range = getPrediction(data_customer)
-        response = {"customerId":customerId, "predictedRange":predicted_range}
+        response = {"predictedRange":predicted_range}
     else:
         response = {"error":"CustomerId not exist"}
     message = callSendAPI(response)
