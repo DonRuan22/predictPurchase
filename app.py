@@ -46,9 +46,9 @@ def loadCustomerData(customerId):
     tx_classdb.loc[tx_classdb.NextPurchaseDay>20,'NextPurchaseDayRange'] = 1
     tx_classdb.loc[tx_classdb.NextPurchaseDay>50,'NextPurchaseDayRange'] = 0
         
-    logging.info('dataframe head - {}'.format(tx_classdb.describe()))  
-    logging.info('dataframe head - {}'.format(tx_classdb.NextPurchaseDayRange))  
-    logging.info('dataframe head - {}'.format(tx_classdb.NextPurchaseDay))  
+    logging.warning('dataframe head - {}'.format(tx_classdb.describe()))  
+    logging.warning('dataframe head - {}'.format(tx_classdb.NextPurchaseDayRange))  
+    logging.warning('dataframe head - {}'.format(tx_classdb.NextPurchaseDay))  
 
 
     #train & test split
