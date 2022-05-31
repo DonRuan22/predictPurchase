@@ -24,7 +24,7 @@ def getPrediction(dataUser):
             if each not in dataUser.columns:
                 dataUser[each] = 0
         predicted = model.predict(dataUser)
-        return predicted.iloc[0]
+        return predicted[0]
 
 
 def loadCustomerData(customerId):
