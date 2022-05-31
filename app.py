@@ -50,7 +50,7 @@ def loadCustomerData(customerId):
     logging.warning('dataframe head - {}'.format(tx_classdb.NextPurchaseDayRange))  
     logging.warning('dataframe head - {}'.format(tx_classdb.NextPurchaseDay))  
     logging.warning(tx_classdb.info()) 
-
+    
 
     #train & test split
     tx_classdb = tx_classdb.drop('NextPurchaseDay',axis=1)
