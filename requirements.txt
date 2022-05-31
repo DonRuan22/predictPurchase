@@ -7,3 +7,4 @@ gcsfs
 pandas
 numpy
 db_dtypes
+scikit-learn
